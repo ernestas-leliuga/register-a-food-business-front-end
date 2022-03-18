@@ -22,11 +22,7 @@ steps:
 
   - script: yarn lint
     displayName: "Lint"
-
-  - script: yarn test:ci
-    displayName: "Unit tests"
-    failOnStderr: false
-
+    
   - task: PublishTestResults@2
     inputs:
       testRunner: JUnit
