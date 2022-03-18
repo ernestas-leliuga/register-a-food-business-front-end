@@ -16,44 +16,6 @@ steps:
 
   - script: yarn
     displayName: "Install dependencies"
-
-  - script: yarn format:verify
-    displayName: "Format"
-
-  - script: yarn lint
-    displayName: "Lint"
-    
-  - task: PublishTestResults@2
-    inputs:
-      testRunner: JUnit
-      testResultsFile: ./reports/TEST-unit.xml
-      testRunTitle: Unit tests
-      mergeTestResults: false
-
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml"
-      reportDirectory: "$(System.DefaultWorkingDirectory)/coverage/lcov-report"
-
-  - script: yarn test:integration
-    displayName: "Integration tests"
-
-  - task: PublishTestResults@2
-    inputs:
-      testRunner: JUnit
-      testResultsFile: ./reports/TEST-integration.xml
-      testRunTitle: Integration tests
-      mergeTestResults: false
-
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: 'Sonarcloud'
-      organization: 'fsa'
-      scannerMode: 'CLI'
-      configMode: 'file'
-      
-  - task: SonarCloudAnalyze@1
   
   - script: yarn --production
     displayName: Prune dev dependencies
