@@ -5,6 +5,7 @@
  */
 const { Router } = require("express");
 const { logEmitter } = require("../services/logging.service");
+const { logger } = require("../services/winston");
 
 const { LC_CACHE_TIME_TO_LIVE } = require("../config");
 const {
@@ -88,6 +89,7 @@ const newRouter = () => {
             );
 
             var props = PropsGenerator(req);
+            logger.info(`Index passed CSRF: ${props.csrfToken}`);
             res.render("index", { props });
           }
         });
@@ -132,7 +134,9 @@ const newRouter = () => {
               `Rendering page: ${page}`
             );
 
-            res.render(`${page}`, { props: PropsGenerator(req) });
+            let props = PropsGenerator(req);
+            logger.info(`Reg or summary page passed CSRF: ${props.csrfToken}`);
+            res.render(`${page}`, { props: props });
           });
           // For all other scenarios, render the requested page.
         } else {
@@ -142,7 +146,8 @@ const newRouter = () => {
             "/new route",
             `Rendering page: ${page}`
           );
-
+          let props = PropsGenerator(req);
+          logger.info(`Page passed CSRF: ${props.csrfToken}`);
           res.render(`${page}`, { props: PropsGenerator(req) });
         }
       }

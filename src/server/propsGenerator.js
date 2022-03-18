@@ -1,5 +1,6 @@
 const { PageTitles } = require("../../pages/PageTitles");
 const i18n = require("i18n");
+const { logger } = require("./services/winston");
 const {
   businessTypeEnum
 } = require("@slice-and-dice/register-a-food-business-validation");
@@ -27,7 +28,7 @@ module.exports = (req) => {
       : undefined;
 
   const csrfToken = req.csrfToken();
-
+  logger.info(`Generated CSRF: ${csrfToken}`);
   const cumulativeFullAnswers =
     req && req.session && req.session.cumulativeFullAnswers
       ? req.session.cumulativeFullAnswers

@@ -7,6 +7,7 @@
 const { Router } = require("express");
 const { logEmitter } = require("../services/logging.service");
 const continueController = require("../controllers/continue.controller");
+const { logger } = require("../services/winston");
 
 const continueRouter = () => {
   const router = Router();
@@ -18,7 +19,8 @@ const continueRouter = () => {
       "/continue route",
       `Originator: ${req.session.council}/${req.params.originator}`
     );
-
+    logger.warn(`Posted CSRF: ${req.body._csrf}`);
+    logEmitter.emit("WARN", `Posted CSRF: ${req.body._csrf}`);
     const response = continueController(
       `/${req.params.originator}`,
       req.session.cumulativeFullAnswers,
