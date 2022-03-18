@@ -3,6 +3,8 @@ const PropsGenerator = require("../propsGenerator");
 
 const errorHandler = (err, req, res, next) => {
   error(err);
+  error(req.body);
+  error(req.originalUrl);
   error(`statusCode: ${res ? res.statusCode : err ? err.statusCode : null}`);
   var props = {
     statusCode: res ? res.statusCode : err ? err.statusCode : "500",
