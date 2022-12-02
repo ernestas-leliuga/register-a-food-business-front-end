@@ -1,0 +1,77 @@
+name: dev_build
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use Node.js 16.15
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.15
+        
+    - name: Npm version
+      run: npm -v
+      
+    - name: Install dependencies
+      run: yarn
+      
+    - name: Format
+      run: yarn format:verify
+      
+    - name: Lint
+      run: yarn lint
+      
+    - name: Unit tests
+      run: yarn test:ci
+      
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: ./reports/TEST-unit.xml
+     
+    - name: Publish Tesst Coverage
+      uses: 5monkeys/cobertura-action@master
+      with:
+        path: ./coverage/cobertura-coverage.xml
+        minimum_coverage: 50
+        
+    - name: Integration tests
+      run: yarn test:integration
+      
+    - name: Publish Integration Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: ./reports/TEST-integration.xml
+   
+    - # "Error: the step 'SonarCloudPrepare@1' does not have a conversion path yet"
+      run: |
+        echo "Error: the step 'SonarCloudPrepare@1' does not have a conversion path yet"
+        #task: SonarCloudPrepare@1
+        #inputs:
+        #  sonarcloud: Sonarcloud
+        #  organization: fsa
+        #  scannermode: CLI
+        #  configmode: file
+    - # "Error: the step 'SonarCloudAnalyze@1' does not have a conversion path yet"
+      run: |
+        echo "Error: the step 'SonarCloudAnalyze@1' does not have a conversion path yet"
+        #task: SonarCloudAnalyze@1
+        
+    - name: Prune dev dependencies
+      run: yarn --production
+      
+    - name: Remove unnecessary folders
+      run: rm -rf coverage reports .vs .vscode docs src/__tests__
+      
+    - name: Zip artifact for deployment
+      run: zip dev_build.zip ./* -r
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: dev_build
+        path: dev_build.zip
+                    
