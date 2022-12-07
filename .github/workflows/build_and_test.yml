@@ -31,7 +31,7 @@ jobs:
       run: npm run lint
       
     - name: Unit tests
-      run: npm run test:unit:ci
+      run: yarn test:ci
       
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
@@ -41,7 +41,7 @@ jobs:
         check_name: 'Unit Test Results'
         
     - name: Integration tests
-      run: npm run test:integration
+      run: yarn test:integration
       
     - name: Publish Integration Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
