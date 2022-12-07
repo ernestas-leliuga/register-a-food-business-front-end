@@ -2,4 +2,4 @@ name: dev_build
 on: push
 jobs:
   build:
-   uses: .github/workflows/build%26test.yml@master
+   uses: ./.github/workflows/build%26test.yml
