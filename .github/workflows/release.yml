@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  release:
+  release_echo:
     env:
       ENVIRONMENT: ${{ inputs.environment }}
     runs-on: ubuntu-latest
@@ -16,3 +16,8 @@ jobs:
     steps:
       - run: |
           echo "Environment: $ENVIRONMENT"
+  
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: inputs.environment
