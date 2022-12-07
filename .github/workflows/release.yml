@@ -1,3 +1,4 @@
+name: Release
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +12,7 @@ jobs:
     env:
       ENVIRONMENT: ${{ inputs.environment }}
     runs-on: ubuntu-latest
-    environment: $ENVIRONMENT
+    environment: ${{ inputs.environment }}
     steps:
       - run: |
           echo "Environment: $ENVIRONMENT"
