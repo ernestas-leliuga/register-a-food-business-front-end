@@ -11,12 +11,7 @@ on:
       environment:
         description: 'Environment to deploy to'
         required: true
-        type: choice
-        options:
-        - integration
-        - staging
-        - production
-        default: 'integration'
+        default: 'Staging'
 
 jobs:
     
