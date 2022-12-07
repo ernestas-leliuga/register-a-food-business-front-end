@@ -1,18 +1,6 @@
 name: Release
-run-name: Deploy ${{ inputs.gitRef || github.ref_name  }} to ${{ inputs.environment || 'integration' }}
-on:
-  workflow_dispatch:
-     inputs:
-      gitRef:
-        description: 'Commit, tag or branch name to deploy'
-        required: true
-        type: string
-        default: 'main'
-      environment:
-        description: 'Environment to deploy to'
-        required: true
-        default: 'Staging'
-
+run-name: Release (${{ github.ref_name  }})
+on: workflow_dispatch
 jobs:
     
   release_echo:
