@@ -34,7 +34,7 @@ jobs:
         package: '*.zip'
         
   swap-with-production-slot:
-    name: Swap with production slot
+    name: Swap with prod slot
     environment: ${{ inputs.environment }}
     needs: deploy-to-staging-slot
     runs-on: ubuntu-latest
