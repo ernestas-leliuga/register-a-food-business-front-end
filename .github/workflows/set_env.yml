@@ -10,6 +10,7 @@ jobs:
     name: Set Environment Varibles
     runs-on: ubuntu-latest  
     steps:
+      - uses: actions/checkout@v1
       - name: Set staging enviroment varibles
         if: ${{ inputs.environment == Staging }}
         run: echo "dddd"
