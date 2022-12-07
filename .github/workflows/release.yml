@@ -14,8 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
+      - uses: ./.github/workflows/build_and_test.yml
       - run: |
-          echo "Environment: $ENVIRONMENT"
+          echo "Environment: $aaa"
   
   build_and_test:
     name: Build & test
