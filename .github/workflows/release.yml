@@ -8,6 +8,9 @@ on:
 
 jobs:
   release:
+    env:
+      ENVIRONMENT: ${{ inputs.environment }}
+    environment: $ENVIRONMENT
     runs-on: ubuntu-latest
     steps:
       - run: |
