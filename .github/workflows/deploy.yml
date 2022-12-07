@@ -25,14 +25,14 @@ jobs:
 #     - name: Download artifact from build job
 #       uses: actions/download-artifact@v2
 #       with:
-#         name: dev_build
+#         name: build
     
 #     - name: Deploy to slot
 #       uses: azure/webapps-deploy@v1
 #       with: 
 #         app-name: ${{ env.WEBAPP_NAME }}
 #         slot-name: ${{ env.SLOT_NAME }}
-#         package: '*.zip'
+#         package: 'build.zip'
         
   swap-with-production-slot:
     name: Swap with prod slot
