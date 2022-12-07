@@ -8,15 +8,20 @@ on:
         required: true
 
 jobs:
+  get_env:
+    uses: ./.github/workflows/set_env.yml
+    
   release_echo:
+    needs: get_env
     env:
       ENVIRONMENT: ${{ inputs.environment }}
+      AAA: &{{ needs.get_env.outputs.aaa }}
+      
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-      - uses: ./.github/workflows/set_env.yml
       - run: |
-          echo "Environment: $aaa"
+          echo "Environment: AAA"
   
   build_and_test:
     name: Build & test
