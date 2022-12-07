@@ -1,0 +1,14 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to release'
+        type: environment
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Environment: $ENVIRONMENT"
