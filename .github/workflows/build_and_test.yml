@@ -82,7 +82,7 @@ jobs:
       run: rm -rf coverage reports
       
     - name: Zip artifact for deployment
-      run: zip dev_build.zip ./* -r
+      run: zip build.zip ./* -r
       
     - name: Upload artifact
       uses: actions/upload-artifact@v2
