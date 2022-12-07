@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-      - uses: actions/checkout@v1
       - uses: ./.github/workflows/set_env.yml
       - run: |
           echo "Environment: $aaa"
