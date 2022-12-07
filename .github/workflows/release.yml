@@ -10,8 +10,8 @@ jobs:
   release:
     env:
       ENVIRONMENT: ${{ inputs.environment }}
-    environment: $ENVIRONMENT
     runs-on: ubuntu-latest
+    environment: $ENVIRONMENT
     steps:
       - run: |
           echo "Environment: $ENVIRONMENT"
