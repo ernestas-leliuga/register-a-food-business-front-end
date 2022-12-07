@@ -32,3 +32,11 @@ jobs:
     with:
       environment: Production
     secrets: inherit
+    
+  deploy_to_onboarding:
+    name: Deploy to Onboarding
+    needs: [build_and_test, deploy_to_staging]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Onboarding
+    secrets: inherit
