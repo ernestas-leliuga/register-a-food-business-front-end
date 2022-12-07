@@ -11,9 +11,9 @@ env:
   SLOT_NAME: deploy
 
 jobs:        
-  deploy-to-slot:
+  deploy-to-staging-slot:
+    name: Deploy to staging slot
     environment: ${{ inputs.environment }}
-    name: Deploy to slot
     runs-on: ubuntu-latest
     steps:
     - name: Log into Azure CLI with service principal
@@ -33,10 +33,10 @@ jobs:
         slot-name: ${{ env.SLOT_NAME }}
         package: '*.zip'
         
-  release-to-prod:
-    name: Release to prod
-    environment: production
-    needs: deploy-to-slot
+  swap-with-production-slot:
+    name: Swap with production slot
+    environment: ${{ inputs.environment }}
+    needs: deploy-to-staging-slot
     runs-on: ubuntu-latest
 
     steps:
