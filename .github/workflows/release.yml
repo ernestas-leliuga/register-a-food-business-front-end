@@ -18,9 +18,11 @@ jobs:
           echo "Environment: $ENVIRONMENT"
   
   build_and_test:
+    name: Build and test
     uses: ./.github/workflows/build_and_test.yml
     
   deploy:
+    name: Deploy to ${{ inputs.environment }}
     needs: build_and_test
     uses: ./.github/workflows/deploy.yml
     with:
