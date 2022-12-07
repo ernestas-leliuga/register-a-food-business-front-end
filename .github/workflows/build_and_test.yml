@@ -1,50 +1,62 @@
-on: workflow_call
+on: 
+  - workflow_call
+  - workflow_dispatch
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+   build:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    
+    - name: Checkout
+      uses: actions/checkout@v2
     
     - name: Use Node.js 16.15
       uses: actions/setup-node@v1
       with:
         node-version: 16.15
         
+    - name: Create .npmrc
+      run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      
     - name: Npm version
       run: npm -v
       
-    - name: Install dependencies
-      run: yarn
+    - name: Install
+      run: npm install
       
     - name: Format
-      run: yarn format:verify
+      run: npm run format:verify
       
     - name: Lint
-      run: yarn lint
+      run: npm run lint
       
     - name: Unit tests
-      run: yarn test:ci
+      run: npm run test:unit:ci
       
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
         junit_files: ./reports/TEST-unit.xml
-     
-    - name: Publish Tesst Coverage
-      uses: 5monkeys/cobertura-action@master
-      with:
-        path: ./coverage/cobertura-coverage.xml
-        minimum_coverage: 50
+        check_name: 'Unit Test Results'
         
     - name: Integration tests
-      run: yarn test:integration
+      run: npm run test:integration
       
     - name: Publish Integration Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
         junit_files: ./reports/TEST-integration.xml
+        check_name: 'Integration Test Results'
+    
+    - name: Publish Coverage Summary
+      uses: 5monkeys/cobertura-action@v13
+      with:
+        path: ./coverage/cobertura-coverage.xml
+        minimum_coverage: 60
+        show_line: true
+        show_branch: true
+        report_name: Coverage Summary
    
     - # "Error: the step 'SonarCloudPrepare@1' does not have a conversion path yet"
       run: |
@@ -61,15 +73,16 @@ jobs:
         #task: SonarCloudAnalyze@1
         
     - name: Prune dev dependencies
-      run: yarn --production
+      run: npm prune --production
       
-    - name: Remove unnecessary folders
-      run: rm -rf coverage reports .vs .vscode docs src/__tests__
+    - name: Remove reporting folders
+      run: rm -rf coverage reports
       
     - name: Zip artifact for deployment
       run: zip dev_build.zip ./* -r
-    
-    - uses: actions/upload-artifact@v2
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
         name: dev_build
         path: dev_build.zip
