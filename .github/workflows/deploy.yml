@@ -16,22 +16,23 @@ jobs:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-    - name: Log into Azure CLI with service principal
-      uses: azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: echo "Deploy to staging slot"
+#     - name: Log into Azure CLI with service principal
+#       uses: azure/login@v1.1
+#       with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v2
-      with:
-        name: dev_build
+#     - name: Download artifact from build job
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: dev_build
     
-    - name: Deploy to slot
-      uses: azure/webapps-deploy@v1
-      with: 
-        app-name: ${{ env.WEBAPP_NAME }}
-        slot-name: ${{ env.SLOT_NAME }}
-        package: '*.zip'
+#     - name: Deploy to slot
+#       uses: azure/webapps-deploy@v1
+#       with: 
+#         app-name: ${{ env.WEBAPP_NAME }}
+#         slot-name: ${{ env.SLOT_NAME }}
+#         package: '*.zip'
         
   swap-with-production-slot:
     name: Swap with prod slot
@@ -40,10 +41,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Log into Azure CLI with service principal
-      uses: azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: echo "Swap with prod slot"
+#     - name: Log into Azure CLI with service principal
+#       uses: azure/login@v1.1
+#       with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Swap slots
-      run: az webapp deployment slot swap -s ${{ env.SLOT_NAME }} -n ${{ env.WEBAPP_NAME }} -g ${{ env.RESOURCE_GROUP }}
+#     - name: Swap slots
+#       run: az webapp deployment slot swap -s ${{ env.SLOT_NAME }} -n ${{ env.WEBAPP_NAME }} -g ${{ env.RESOURCE_GROUP }}
