@@ -1,0 +1,37 @@
+name: Set Environment Varibles
+on: 
+  workflow_call:
+    inputs: 
+      environment:
+        required: true
+        type: string
+jobs:
+  set-environment-varables:
+    name: Set Environment Varibles
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Set staging enviroment varibles
+        env:
+          aaa: "STAG"
+          myNull: ${{ null }}
+          myBoolean: ${{ false }}
+          myIntegerNumber: ${{ 711 }}
+          myFloatNumber: ${{ -9.2 }}
+          myHexNumber: ${{ 0xff }}
+          myExponentialNumber: ${{ -2.99e-2 }}
+          myString: Mona the Octocat
+          myStringInBraces: ${{ 'It''s open source!' }}
+        if: ${{ inputs.environment == Staging }}
+        
+      - name: Set staging enviroment varibles
+        env:
+          aaa: "PROD"
+          myNull: ${{ null }}
+          myBoolean: ${{ false }}
+          myIntegerNumber: ${{ 711 }}
+          myFloatNumber: ${{ -9.2 }}
+          myHexNumber: ${{ 0xff }}
+          myExponentialNumber: ${{ -2.99e-2 }}
+          myString: Mona the Octocat
+          myStringInBraces: ${{ 'It''s open source!' }}
+        if: ${{ inputs.environment == Production }}
