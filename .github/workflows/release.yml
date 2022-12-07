@@ -21,10 +21,18 @@ jobs:
     name: Build & test
     uses: ./.github/workflows/build_and_test.yml
     
-  deploy:
-    name: Deploy
+  deploy_to_staging:
+    name: Deploy to Staging
     needs: build_and_test
     uses: ./.github/workflows/deploy.yml
     with:
-      environment: ${{ inputs.environment }}
+      environment: Staging
+    secrets: inherit
+    
+  deploy_to_production:
+    name: Deploy to Production
+    needs: [build_and_test, deploy_to_staging]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Production
     secrets: inherit
