@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest  
     steps:
       - name: Set staging enviroment varibles
+        if: ${{ inputs.environment == Staging }}
+        run: echo "dddd"
         env:
           aaa: "STAG"
           myNull: ${{ null }}
@@ -21,9 +23,11 @@ jobs:
           myExponentialNumber: ${{ -2.99e-2 }}
           myString: Mona the Octocat
           myStringInBraces: ${{ 'It''s open source!' }}
-        if: ${{ inputs.environment == Staging }}
+        
         
       - name: Set staging enviroment varibles
+        if: ${{ inputs.environment == Production }}
+        run: echo "dddd"
         env:
           aaa: "PROD"
           myNull: ${{ null }}
@@ -34,4 +38,4 @@ jobs:
           myExponentialNumber: ${{ -2.99e-2 }}
           myString: Mona the Octocat
           myStringInBraces: ${{ 'It''s open source!' }}
-        if: ${{ inputs.environment == Production }}
+        
