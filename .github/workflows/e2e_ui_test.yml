@@ -13,12 +13,22 @@ on:
         default: staging
   
 jobs:
+  test1: 
+    runs-on: ubuntu-latest
+    env:
+      AAA: ${{ fromJSON('{"production":"prod","staging":"stag","integration":"int"}')[inputs.environment] }}
+      
+    steps:
+     - run: echo 'hello $AAA'
+      
   e2e_ui_test:
+    if: ${{ false }}
     name: E2E, UI Test
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
       URL_ENV: ${{ inputs.environment }}
+      BASE_URL: https://${{ inputs.environment }}-register-a-food-business.azurewebsites.net
       BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
       BROWSERSTACK_KEY: ${{ secrets.BROWSERSTACK_KEY }}
     steps:
