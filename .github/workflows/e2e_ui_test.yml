@@ -3,8 +3,15 @@ on:
   workflow_call:
     inputs: 
       environment:
-          required: true
-          type: string
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs: 
+      environment:
+        required: true
+        type: string
+        default: staging
+  
 jobs:
   sample-job:
         runs-on: ubuntu-latest
