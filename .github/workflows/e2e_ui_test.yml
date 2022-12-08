@@ -13,27 +13,12 @@ on:
         default: staging
   
 jobs:
-  sample-job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: echo-default-env-variables
-              run: |
-                  echo "Home: ${HOME}"
-                  echo "GITHUB_WORKFLOW: ${GITHUB_WORKFLOW}"
-                  echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
-                  echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
-                  echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
-                  echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
-                  echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
-                  echo "GITHUB_SHA: ${GITHUB_SHA}"
-                  echo "GITHUB_REF: ${GITHUB_REF}"
   e2e_ui_test:
     name: E2E, UI Test
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
       URL_ENV: ${{ inputs.environment }}
-      BASE_URL: https://staging-register-a-food-business.azurewebsites.net
       BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
       BROWSERSTACK_KEY: ${{ secrets.BROWSERSTACK_KEY }}
     steps:
@@ -54,12 +39,6 @@ jobs:
     - name: Install
       run: yarn install
       
-    - name: BrowserStack configuration setup
-      uses: browserstack/github-actions@v1.0.1
-      with:
-        username:  ${{ secrets.BROWSERSTACK_USERNAME }}
-        access-key:  ${{ secrets.BROWSERSTACK_KEY }}  
-        
     - name: E2E Test
       run: yarn test:browserstack:e2e
       
