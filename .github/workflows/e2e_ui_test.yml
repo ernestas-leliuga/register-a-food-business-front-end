@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       URL_ENV: ${{ inputs.environment }}
+      BASE_URL: https://staging-register-a-food-business.azurewebsites.net
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
       BROWSERSTACK_KEY: ${{ secrets.BROWSERSTACK_KEY }}
     steps:
@@ -50,12 +51,7 @@ jobs:
       uses: browserstack/github-actions@v1.0.1
       with:
         username:  ${{ secrets.BROWSERSTACK_USERNAME }}
-        access-key:  ${{ secrets.BROWSERSTACK_KEY }}
-        
-    -  run: |
-        echo "url $URL_ENV"
-        echo "username $BROWSERSTACK_USERNAME"
-        echo "key $BROWSERSTACK_KEY"   
+        access-key:  ${{ secrets.BROWSERSTACK_KEY }}  
         
     - name: E2E Test
       run: yarn test:browserstack:e2e
