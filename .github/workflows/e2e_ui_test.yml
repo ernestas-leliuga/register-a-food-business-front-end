@@ -57,12 +57,12 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        junit_files: ./WDIO*.xml
+        junit_files: ./reports/WDIO*.xml
         check_name: 'E2E Test Results'
       
     - name: Remove E2E Test Results
       
-      run: rm -rf ./WDIO*.xml
+      run: rm -rf ./reports/WDIO*.xml
         
     - name: UI Test
       run: yarn test:browserstack:e2e
@@ -71,6 +71,6 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        junit_files: ./WDIO*.xml
+        junit_files: ./reports/WDIO*.xml
         check_name: 'UI Test Results'
       
