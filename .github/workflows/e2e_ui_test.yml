@@ -48,7 +48,7 @@ jobs:
       run: rm -rf ./reports/WDIO*.xml
         
     - name: UI Test
-      run: yarn test:browserstack:e2e
+      run: yarn test:browserstack:ui
       
     - name: Publish UI Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
