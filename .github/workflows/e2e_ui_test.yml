@@ -20,3 +20,54 @@ jobs:
                   echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
                   echo "GITHUB_SHA: ${GITHUB_SHA}"
                   echo "GITHUB_REF: ${GITHUB_REF}"
+  e2e_ui_test:
+    name: E2E, UI Test
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout tools repo
+      uses: actions/checkout@v3
+      with:
+        repository: FoodStandardsAgency/register-a-food-business-UI-tests
+        ref: 'master'
+        
+    - name: Use Node.js 12.14
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.14
+      
+    - name: Npm version
+      run: npm -v
+      
+    - name: Install
+      run: yarn install
+      
+    - name: BrowserStack configuration setup
+      uses: browserstack/github-actions@v1.0.1
+      with:
+        username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+        access-key:  ${{ secrets.BROWSERSTACK_KEY }}
+        
+    - name: E2E Test
+      run: yarn test:browserstack:e2e
+      
+    - name: Publish E2E Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: ./WDIO*.xml
+        check_name: 'E2E Test Results'
+        
+    - name: Remove E2E Test Results
+      run: rm -rf ./WDIO*.xml
+        
+    - name: UI Test
+      run: yarn test:browserstack:e2e
+      
+    - name: Publish UI Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: ./WDIO*.xml
+        check_name: 'UI Test Results'
+      
