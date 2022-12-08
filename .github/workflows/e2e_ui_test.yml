@@ -52,6 +52,11 @@ jobs:
         username:  ${{ secrets.BROWSERSTACK_USERNAME }}
         access-key:  ${{ secrets.BROWSERSTACK_KEY }}
         
+    -  run: |
+        echo "url $URL_ENV"
+        echo "username $BROWSERSTACK_USERNAME"
+        echo "key $BROWSERSTACK_KEY"   
+        
     - name: E2E Test
       run: yarn test:browserstack:e2e
       
@@ -62,10 +67,6 @@ jobs:
         junit_files: ./WDIO*.xml
         check_name: 'E2E Test Results'
       
-    -  run: |
-        echo "url $URL_ENV"
-        echo "username $BROWSERSTACK_USERNAME"
-        echo "key $BROWSERSTACK_KEY"
     - name: Remove E2E Test Results
       
       run: rm -rf ./WDIO*.xml
