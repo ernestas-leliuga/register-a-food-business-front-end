@@ -61,8 +61,13 @@ jobs:
       with:
         junit_files: ./WDIO*.xml
         check_name: 'E2E Test Results'
-        
+      
+    -  run: |
+        echo "url $URL_ENV"
+        echo "username $BROWSERSTACK_USERNAME"
+        echo "key $BROWSERSTACK_KEY"
     - name: Remove E2E Test Results
+      
       run: rm -rf ./WDIO*.xml
         
     - name: UI Test
