@@ -22,29 +22,29 @@ jobs:
     needs: build_and_test
     uses: ./.github/workflows/deploy.yml
     with:
-      environment: Staging
+      environment: staging
     secrets: inherit
     
   e2e_ui_test:
     name: E2E, UI Test
     needs: deploy_to_staging
     uses: ./.github/workflows/e2e_ui_test.yml
-#     with:
-#       environment: Staging
+    with:
+      environment: staging
     secrets: inherit
     
   deploy_to_production:
     name: Deploy to Production
-    needs: [build_and_test, deploy_to_staging]
+    needs: [build_and_test, deploy_to_staging, e2e_ui_test]
     uses: ./.github/workflows/deploy.yml
     with:
-      environment: Production
+      environment: production
     secrets: inherit
     
   deploy_to_onboarding:
     name: Deploy to Onboarding
-    needs: [build_and_test, deploy_to_staging]
+    needs: [build_and_test, deploy_to_staging, e2e_ui_test]
     uses: ./.github/workflows/deploy.yml
     with:
-      environment: Onboarding
+      environment: onboarding
     secrets: inherit
