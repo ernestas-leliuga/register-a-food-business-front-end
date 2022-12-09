@@ -34,7 +34,7 @@ jobs:
     - name: Convert name to lovercase and joined with underscore
       id: name_to_joined_lowercase
       run: |
-        export input_feature_name=$(echo ${{ steps.tag_version.outputs.new_version }} |  sed -r s/[^a-zA-Z0-9]+/_/g | sed -r s/^-+\|-+$//g | tr A-Z a-z
+        export input_feature_name=$(echo ${{ steps.tag_version.outputs.new_version }} |  sed -r s/[^a-zA-Z0-9]+/_/g | sed -r s/^-+\|-+$//g | tr A-Z a-z )
         echo ::set-output name=feature_name::$input_feature_name
       
     - name: Create branch
