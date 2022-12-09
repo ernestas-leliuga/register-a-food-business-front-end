@@ -1,6 +1,11 @@
 name: Release
 run-name: Release (${{ github.ref_name  }})
-on: workflow_dispatch
+on: 
+    workflow_dispatch:
+    pull_request:
+        branches:
+        - 'release/**'
+        - 'hotfix/**'
 jobs:
     
   release_echo:
