@@ -16,6 +16,7 @@ on:
         
 jobs:
   create_release_hotfix:
+    name: Create {{ inputs.release_hotfix }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
