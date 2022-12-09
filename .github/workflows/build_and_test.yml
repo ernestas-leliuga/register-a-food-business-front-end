@@ -1,7 +1,11 @@
 name: Build & Test
 on: 
-  - workflow_call
-  - workflow_dispatch
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+      - master
   
 jobs:
    build_lint_test:
