@@ -1,5 +1,5 @@
-name: Release
-run-name: Release (${{ github.ref_name  }})
+name: Release to Staging & Prod
+run-name: Release to Staging & Prod (${{ github.ref_name  }})
 on: 
     workflow_dispatch:
     pull_request:
