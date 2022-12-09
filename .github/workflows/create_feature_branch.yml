@@ -38,7 +38,7 @@ jobs:
         echo ::set-output name=feature_name::$input_feature_name
       
     - name: Create branch
-      run: git checkout -b feature/{{ steps.var.outputs.feature_name }}
+      run: git checkout -b feature/${{ steps.var.outputs.feature_name }}
         
     - name: Push new branch
-      run: git push origin feature/{{ steps.var.outputs.feature_name }}
+      run: git push origin feature/${{ steps.var.outputs.feature_name }}
