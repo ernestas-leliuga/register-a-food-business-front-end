@@ -28,6 +28,6 @@ jobs:
   e2e_ui_test:
     if: ${{ !skip_ui_tests }}
     name: E2E, UI Test
-    needs: deploy_to_staging
+    needs: deploy_to_test
     uses: ./.github/workflows/e2e_ui_test.yml
     secrets: inherit
