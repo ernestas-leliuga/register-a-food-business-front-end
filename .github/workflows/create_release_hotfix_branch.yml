@@ -4,6 +4,7 @@ on:
     inputs:
       release_hotfix:
         description: 'Release/Hotfix ?'
+        type: choice
         required: true
         default: release
         options:
