@@ -38,16 +38,16 @@ jobs:
       run: npm -v    
       
     - name: Create branch
-      run: git checkout -b {{ inputs.release_hotfix }}/v${{ inputs.version }}
+      run: git checkout -b ${{ inputs.release_hotfix }}/v${{ inputs.version }}
       
     - name: Update version package.json
-      run: npm version {{ inputs.version }}
+      run: npm version ${{ inputs.version }}
       
     - name: Add package.json file
       run: git add package.json
       
     - name: Commit changes
-      run: git commit --message "Prepare {{ inputs.release_hotfix }} v${{ github.event.inputs.version }}"
+      run: git commit --message "Prepare ${{ inputs.release_hotfix }} v${{ github.event.inputs.version }}"
         
     - name: Push new branch
-      run: git push origin {{ inputs.release_hotfix }}/v${{ inputs.version }}
+      run: git push origin ${{ inputs.release_hotfix }}/v${{ inputs.version }}
