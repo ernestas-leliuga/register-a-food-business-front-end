@@ -41,7 +41,7 @@ jobs:
       run: git checkout -b ${{ inputs.release_hotfix }}/v${{ inputs.version }}
       
     - name: Update version package.json
-      run: npm version ${{ inputs.version }}
+      run: npm version ${{ inputs.version }} --no-git-tag-version
       
     - name: Add package.json file
       run: git add package.json
