@@ -1,4 +1,5 @@
 name: E2E, UI Test
+run-name: E2E, UI Test (${{ inputs.environment  }})
 on: 
   workflow_call:
     inputs: 
