@@ -10,7 +10,9 @@ on:
 jobs:
    build_lint_test:
     name: Build, Lint, Test
-    
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
     runs-on: ubuntu-latest
     
     steps:
@@ -23,7 +25,7 @@ jobs:
         node-version: 16.15
         
     - name: Create .npmrc
-      run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
       
     - name: Npm version
       run: npm -v
