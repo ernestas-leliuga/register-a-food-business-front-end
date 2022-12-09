@@ -7,17 +7,6 @@ on:
         - 'release/**'
         - 'hotfix/**'
 jobs:
-    
-  release_echo:
-    env:
-      ENVIRONMENT: ${{ inputs.environment }}
-      
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    steps:
-      - run: |
-          echo "Environment: $ENVIRONMENT"
-  
   build_and_test:
     name: Build & test
     uses: ./.github/workflows/build_and_test.yml
