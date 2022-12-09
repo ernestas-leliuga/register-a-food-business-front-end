@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Enviroment'
+        description: 'Environment'
         type: choice
         required: true
         default: staging
