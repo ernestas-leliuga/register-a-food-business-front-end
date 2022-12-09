@@ -7,13 +7,6 @@ on:
         description: 'Feature name?'
         type: text
         required: true
-        default: release
-        options:
-          - release
-          - hotfix
-      version:
-        description: 'Version  (ie 14.2.1)'
-        required: true
         
 jobs:
   create_feature:
