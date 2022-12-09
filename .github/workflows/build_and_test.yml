@@ -1,7 +1,12 @@
 name: Build & Test
 on: 
-  - workflow_call
-  - workflow_dispatch
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch'
+        default: develop
+        required: true
 jobs:
    build:
     name: Build, Lint, Test
