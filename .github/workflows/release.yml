@@ -23,6 +23,8 @@ jobs:
     name: E2E, UI Test
     needs: deploy_to_staging
     uses: ./.github/workflows/e2e_ui_test.yml
+    with:
+      environment: production
     secrets: inherit
     
   deploy_to_production:
